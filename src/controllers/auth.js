@@ -9,17 +9,18 @@ router.get('/sign-in',(req,res) =>{
     return res.json('Sign in');
 })
 
-router.get('/sign-up',async (req,res)=>{
+router.get('/sign-up', async (req,res) => {
+    const { email,password } = req.body;
 
-    const email = 'lmarins02@hotmail.com.br'
-    const password ='123456'
+    const account = await Account.findOne({ where: {email} });
+
+    if(account) return res.json('Account already exist');
 
     const hash  = bcrypt.hashSync(password, saltRounds)
+    const newAccount = await Account.create({ email, password:hash });
 
-    const result = await Account.create({email,password:hash})
-    console.log(hash)
     
-  return res.json(result)
+  return res.json(newAccount);
 })
 
-module.exports = router
+module.exports = router;
