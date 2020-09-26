@@ -1,6 +1,21 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import {signOut} from '../../../actions/AccountActions'
 
-const Layout = ({children}) =>{
+const Layout = ({children, signOut, account}) =>{
+
+    if (!account){
+        return <Redirect to="/sign-in" />
+    }
+
+    
+    const signOutHandler = (e) =>{
+        e.preventDefault();
+        signOut();
+    };
+
+
     return(
         <div className="layout">
             <nav className="navbar navbar-expand=lg bg-primary text-light">
@@ -12,7 +27,7 @@ const Layout = ({children}) =>{
                         <strong>Links</strong>
                     </div>
                     <div>
-                         <span>EXIT</span>
+                         <button className="btn btn-clear" onClick={signOutHandler}>EXIT</button>
                     </div>
                 </div>
             </nav>
@@ -20,5 +35,8 @@ const Layout = ({children}) =>{
         </div>
     )
 };
+const mapStateToProps = (state) =>{
+    return {account: state.account.account }
+};
 
-export default Layout;
+export default connect(mapStateToProps, {signOut})(Layout) ;
