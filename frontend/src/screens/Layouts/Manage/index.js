@@ -30,7 +30,7 @@ const Layout = ({children, signOut, account}) =>{
                          <button className="btn btn-clear" onClick={signOutHandler}>EXIT</button>
                     </div>
                 </div>
-            </nav>
+            </nav>z
         <   div className="container">{children}</div>
         </div>
     )
