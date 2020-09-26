@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) =>{
         password:{
             type: DataTypes.STRING,
             allowNull:false
+        },
+        jwtVersion:{
+            type: DataTypes.STRING,
+            allowNull:false,
+            defaultValue: 0,
         }
     });
 
